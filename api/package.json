@@ -22,7 +22,7 @@
     "serve-static": "^1.12.2"
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --exec babel-node src/server.js",
+    "dev": "NODE_ENV=development babel-node src/server.js",
     "build": "babel ./src -d ./build --ignore node_modules,yarn.lock,build,webpack.config.js --copy-files",
     "start": "NODE_ENV=production node build/server.js"
   }

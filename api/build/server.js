@@ -42,5 +42,6 @@ app.use("*/graphiql", (0, _graphqlServerExpress.graphiqlExpress)({
     endpointURL: "graphql"
 }));
 
-app.listen(3001);
-console.log("Listening");
+app.listen(3001, function () {
+    console.log("Listening in " + process.env.NODE_ENV + " mode");
+});

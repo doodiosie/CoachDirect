@@ -1,4 +1,4 @@
-export const DATABASE_DATA = process.env.NODE_ENV === "production" ? {
+export const DATABASE_DATA = process.env.NODE_ENV === "prod" ? {
     port: 3306,
     database: "coachDirect",
     username: "root",

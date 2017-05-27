@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var DATABASE_DATA = exports.DATABASE_DATA = process.env.NODE_ENV === "production" ? {
+var DATABASE_DATA = exports.DATABASE_DATA = process.env.NODE_ENV === "prod" ? {
     port: 3306,
     database: "coachDirect",
     username: "root",

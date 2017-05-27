@@ -1,0 +1,12 @@
+{
+  "apps" : [
+    {
+      "name"      : "api",
+      "script"    : "api/build/server.js",
+      "watch": true,
+      "env": {
+        "NODE_ENV": "prod"
+      }
+    },
+  ],
+}

@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "build": "./build.sh",
+    "dev": "pm2 start dev.json",
+    "start": "pm2 start prod.json"
+  }
+}
