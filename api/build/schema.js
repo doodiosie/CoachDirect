@@ -1,0 +1,6 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = "\n\nscalar Date\n\ntype Booking {\n    id: Int\n    firstName: String\n    lastName: String\n    pickupDate: Date\n    pickupAddress: String\n    destinationAddress: String\n    price: Int\n}\n\nenum BookingField {\n    id\n    firstName\n    lastName\n    pickupDate\n    pickupAddress\n    destinationAddress\n    price\n}\n\ninput BookingFilter {\n    field: BookingField\n    filter: String\n}\n\ninput BookingOrder {\n    field: BookingField\n    direction: OrderDirection\n}\n\ninput BookingInput {\n    firstName: String!\n    lastName: String!\n    pickupDate: Date!\n    pickupAddress: String!\n    destinationAddress: String!\n    price: Int!\n}\n\nenum OrderDirection {\n    ASC\n    DESC\n}\n\ntype Query {\n    hello: String\n    bookings (\n        order: [BookingOrder],\n        filter: [BookingFilter],\n        first: Int,\n        skip: Int\n    ): [Booking]\n    booking (\n        id: Int!\n    ): Booking\n}\n\ntype Mutation {\n    addBooking (\n        record: BookingInput\n    ): Booking\n    editBooking(\n        id: Int!,\n        record: BookingInput\n    ): Booking\n    deleteBooking (\n        id: Int!\n    ): Booking\n}\n\nschema {\n    query: Query\n    mutation: Mutation\n}\n\n";
