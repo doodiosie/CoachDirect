@@ -9,5 +9,14 @@
         "NODE_ENV": "dev"
       }
     },
-  ],
+    {
+      "name": "frontend",
+      "script": "frontend/src/server.js",
+      "watch": true,
+      "interpreter": "babel-node",
+      "env": {
+        "NODE_ENV": "dev"
+      }
+    }
+  ]
 }

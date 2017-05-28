@@ -3,7 +3,13 @@
     {
       "name"      : "api",
       "script"    : "api/build/server.js",
-      "watch": true,
+      "env": {
+        "NODE_ENV": "prod"
+      }
+    },
+    {
+      "name"      : "frontend",
+      "script"    : "frontend/build/server.js",
       "env": {
         "NODE_ENV": "prod"
       }
