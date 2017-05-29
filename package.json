@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "./build.sh",
-    "dev": "pm2 start dev.json",
+    "dev": "pm2 start dev.json && cd frontend && yarn webpack",
     "start": "pm2 start prod.json"
   }
 }

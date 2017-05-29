@@ -45,7 +45,8 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development nodemon --exec babel-node server.js",
-    "build": "webpack -p --env=prod && babel ./src -d ./build --copy-files",
-    "start": "NODE_ENV=production node build/server.js"
+    "build": "webpack -p --env=prod && babel ./src -d ./build --ignore bundle --copy-files",
+    "start": "NODE_ENV=production node build/server.js",
+    "webpack": "webpack --env=dev --watch"
   }
 }
