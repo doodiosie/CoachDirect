@@ -3,7 +3,6 @@ import {render} from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 
 import MainTemplate from "./templates/MainTemplate";
-import CardsTable from "./admin/cards/CardsTable";
 
 import Routes from "./routes";
 import Provider from "./components/Provider";

@@ -5,7 +5,7 @@ import {Table} from "react-bootstrap";
 import {withState, withHandlers, compose} from "recompose";
 
 import {ToggleTextFilter, ToggleCurFilter, ToggleDateFilter} from "../FilterComponents";
-import {Pages} from "../TableComponents";
+import {Pages, TableHeadData} from "../TableComponents";
 
 const Template = ({data, onOrder, onFilter, loadMore, onDelete, setPage, page}) => (
     <div>
@@ -13,8 +13,10 @@ const Template = ({data, onOrder, onFilter, loadMore, onDelete, setPage, page}) 
             <thead>
                 <tr>
                     <th>
-                        <span onClick={() => onOrder("id")}>Id</span>
-                        <ToggleTextFilter onFilter={onFilter} field="id"/>
+                        <TableHeadData onOrder={onOrder} onFilter={onFilter} field={{
+                                name: "id",
+                                label: "Id",
+                            }}/>
                     </th>
                     <th>
                         <span onClick={() => onOrder("firstName")}>First Name</span>
