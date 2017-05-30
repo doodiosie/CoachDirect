@@ -1,5 +1,6 @@
 import React from "react";
 import {graphql, compose} from "react-apollo";
+import {withState} from "recompose";
 
 import tableState from "../tableState";
 import {allQuery, deleteMutation} from "../graphqlHelpers";
@@ -33,13 +34,18 @@ export default compose(
         },
     }),
     tableState,
+    withState(
+        "page",
+        "setPage",
+        0,
+    ),
     graphql(getBookingsQuery, {
-        options: ({order, filter}) => ({
+        options: ({order, filter, page}) => ({
             variables: {
                 order,
                 filter,
-                skip: 0,
-                first: 40,
+                skip: page*10,
+                first: 10,
             }
         }),
         props: ({data: {bookings=[], fetchMore}}) => ({

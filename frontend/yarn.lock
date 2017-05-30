@@ -2762,6 +2762,10 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
+jquery@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
+
 js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
@@ -4176,6 +4180,12 @@ react-bootstrap@^0.31.0:
     uncontrollable "^4.1.0"
     warning "^3.0.0"
 
+react-currency-input@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/react-currency-input/-/react-currency-input-1.2.6.tgz#8ada2ebf5ed186ffbb58236de19a2c4d4db65783"
+  dependencies:
+    react ">=0.14.0 || >=15.0.0"
+
 react-datepicker@^0.46.0:
   version "0.46.0"
   resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-0.46.0.tgz#dd0c58efde9931964a248854e073151374fc937f"
@@ -4279,7 +4289,7 @@ react-tap-event-plugin@^2.0.1:
   dependencies:
     fbjs "^0.8.6"
 
-react@^15.4.2:
+"react@>=0.14.0 || >=15.0.0", react@^15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:

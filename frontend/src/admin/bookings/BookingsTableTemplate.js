@@ -1,94 +1,81 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import moment from "moment";
-import {Table, Col, Row, Grid, ListGroup, ListGroupItem} from "react-bootstrap";
+import {Table} from "react-bootstrap";
+import {withState, withHandlers, compose} from "recompose";
 
 import {ToggleTextFilter, ToggleCurFilter, ToggleDateFilter} from "../FilterComponents";
+import {Pages} from "../TableComponents";
 
-export default ({data, onOrder, onFilter, loadMore, onDelete}) => (
+const Template = ({data, onOrder, onFilter, loadMore, onDelete, setPage, page}) => (
     <div>
-        <Link to="/admin/bookings/add">
-            Add a Booking
-        </Link>
-        <Grid>
-            <Row>
-                <Col xs={2}>
-                    <strong>
+        <Table>
+            <thead>
+                <tr>
+                    <th>
                         <span onClick={() => onOrder("id")}>Id</span>
-                    </strong>
-                    <ToggleTextFilter onFilter={onFilter} field="id"/>
-                </Col>
-                <Col xs={1}>
-                    <strong>
+                        <ToggleTextFilter onFilter={onFilter} field="id"/>
+                    </th>
+                    <th>
                         <span onClick={() => onOrder("firstName")}>First Name</span>
-                    </strong>
-                    <ToggleTextFilter onFilter={onFilter} field="firstName"/>
-                </Col>
-                <Col xs={1}>
-                    <strong>
+                        <ToggleTextFilter onFilter={onFilter} field="firstName"/>
+                    </th>
+                    <th>
                         <span onClick={() => onOrder("lastName")}>Last Name</span>
-                    </strong>
-                    <ToggleTextFilter onFilter={onFilter} field="lastName"/>
-                </Col>
-                <Col xs={1}>
-                    <strong>
+                        <ToggleTextFilter onFilter={onFilter} field="lastName"/>
+                    </th>
+                    <th>
                         <span onClick={() => onOrder("pickupDate")}>Pickup Date</span>
-                    </strong>
-                    <ToggleTextFilter onFilter={onFilter} field="pickupDate"/>
-                </Col>
-                <Col xs={2}>
-                    <strong>
+                        <ToggleTextFilter onFilter={onFilter} field="pickupDate"/>
+                    </th>
+                    <th>
                         <span onClick={() => onOrder("pickupAddress")}>Pickup Address</span>
-                    </strong>
-                    <ToggleTextFilter onFilter={onFilter} field="pickupAddress"/>
-                </Col>
-                <Col xs={2}>
-                    <strong>
+                        <ToggleTextFilter onFilter={onFilter} field="pickupAddress"/>
+                    </th>
+                    <th>
                         <span onClick={() => onOrder("destinationAddress")}>Destination Address</span>
-                    </strong>
-                    <ToggleTextFilter onFilter={onFilter} field="destinationAddress"/>
-                </Col>
-                <Col xs={1}>
-                    <strong>
+                        <ToggleTextFilter onFilter={onFilter} field="destinationAddress"/>
+                    </th>
+                    <th>
                         <span onClick={() => onOrder("price")}>Price</span>
-                    </strong>
-                    <ToggleCurFilter onFilter={onFilter} field="price"/>
-                </Col>
-            </Row>
-            <Row style={{
-                    height: "70vh",
-                    overflowY: "scroll"
-                }}
-                onScroll={({target}) => {
-                    target.childNodes[0].offsetHeight-target.scrollTop === target.clientHeight ? loadMore() : "";
-                }}>
-                <ListGroup style={{
-                        paddingTop: 10,
-                        margin: 0,
-                    }}>
-                    {data.map(booking => (
-                        <ListGroupItem key={booking.id} style={{
-                                height: 40
-                            }}>
-                            <Col xs={2}>{booking.id}</Col>
-                            <Col xs={1}>{booking.firstName}</Col>
-                            <Col xs={1}>{booking.lastName}</Col>
-                            <Col xs={1}>{moment(booking.pickupDate, "x").format("DD/MM/YY")}</Col>
-                            <Col xs={2}>{booking.pickupAddress}</Col>
-                            <Col xs={2}>{booking.destinationAddress}</Col>
-                            <Col xs={1}>£{booking.price/100}</Col>
-                            <Col xs={1}>
-                                <Link to={`/admin/bookings/edit/${booking.id}`}>
-                                    Edit
-                                </Link>
-                            </Col>
-                            <Col xs={1}>
-                                <a onClick={() => onDelete(booking.id)}>Delete</a>
-                            </Col>
-                        </ListGroupItem>
-                    ))}
-                </ListGroup>
-            </Row>
-        </Grid>
+                        <ToggleTextFilter onFilter={onFilter} field="price"/>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.map(booking => (
+                    <tr key={booking.id} style={{
+                            height: 40
+                        }}>
+                        <td>{booking.id}</td>
+                        <td>{booking.firstName}</td>
+                        <td>{booking.lastName}</td>
+                        <td>{moment(booking.pickupDate, "x").format("DD/MM/YY")}</td>
+                        <td>{booking.pickupAddress}</td>
+                        <td>{booking.destinationAddress}</td>
+                        <td>£{booking.price/100}</td>
+                        <td>
+                            <Link to={`/admin/bookings/edit/${booking.id}`}>
+                                Edit
+                            </Link>
+                        </td>
+                        <td>
+                            <a onClick={() => onDelete(booking.id)}>Delete</a>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </Table>
+        <Pages setPage={setPage} page={page}/>
     </div>
 );
+
+// export default compose(
+//     withState(
+//         "page",
+//         "setPage",
+//         0,
+//     ),
+// )(Template);
+
+export default Template;

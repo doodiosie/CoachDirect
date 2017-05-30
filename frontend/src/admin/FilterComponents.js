@@ -2,51 +2,41 @@ import React, {Component} from "react";
 import {Map} from "immutable";
 import moment from "moment";
 import FontAwesome from "react-fontawesome";
+import {compose, withState, withHandlers} from "recompose";
 
 import {toggleWrapper, CurInput, DateInput} from "./FormComponents";
 
-function filterWrapper (Input, def) {
-    return class FilterWrapper extends Component {
-        constructor(props) {
-            super(props);
-            
-            this.state = {
-                value: Map({
-                    filter: def,
-                }),
-            };
-            
-            this.handleChange = this.handleChange.bind(this);
-        }
-        handleChange(data) {
-            this.setState(state => {
-                const newState = Object.assign({}, state, {
-                    value: data,
+const filterWrapper = (Input, def) => (
+    compose(
+        withState(
+            "value",
+            "updateValue",
+            Map({
+                filter: def,
+            }),
+        ),
+        withHandlers({
+            onChange: ({updateValue, onFilter, field}) => data => {
+                updateValue(
+                    value => data
+                );
+                onFilter({
+                    field,
+                    filter: data.get("filter"),
                 });
-                this.props.onFilter({
-                    field: this.props.field,
-                    filter: newState.value.get("filter"),
-                });
-                return newState;
-            });
-        }
-        render() {
-            const {
-                field,
-                onFilter,
-                ...props
-            } = this.props;
-            return (
-                <Input
-                    name="filter"
-                    onChange={this.handleChange}
-                    data={this.state.value}
-                    {...props}
-                    />
-            );
-        }
-    }
-}
+            },
+        }),
+    )(
+        ({onChange, value, ...props}) => (
+            <Input
+                name="filter"
+                onChange={onChange}
+                data={value}
+                {...props}
+                />
+        )
+    )
+);
 
 export const CurFilter = filterWrapper(CurInput, 0);
 

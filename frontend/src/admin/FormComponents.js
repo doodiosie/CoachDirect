@@ -1,20 +1,33 @@
-import React, {Component} from "react";
+import React from "react";
 import {Map} from "immutable";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+import {withState, compose, withHandlers} from "recompose";
+import CurrencyInput from "react-currency-input";
 
-export const CurInput = ({name, data, onChange}) => (
+export const CurInputOld = ({name, data, onChange, value}) => (
     <input
         name={name}
         type="number"
         className="form-control"
-        value={data.get(name)/100 || 0}
+        value={(data.get(name)/100 || 0).toFixed(2)}
         onChange={event => onChange(Map({
             [name]: event.target.value<0
                 ? 0
                 : event.target.value*100
         }))}
         step={0.01}
+        />
+);
+
+export const CurInput = ({name, data, onChange, value}) => (
+    <CurrencyInput
+        name={name}
+        value={data.get(name)/100 || 0}
+        onChange={value => onChange(Map({
+            [name]: value*100
+        }))}
+        className="form-control"
         />
 );
 
@@ -74,31 +87,26 @@ export const TextInput = ({name, data, onChange}) => (
         />
 );
 
-export function toggleWrapper (ToToggle, ToggleIcon) {
-    return class Toggle extends Component {
-        constructor(props) {
-            super(props);
-            
-            this.state = {
-                enabled: false,
-            };
-            
-            this.toggle = this.toggle.bind(this);
-        }
-        toggle() {
-            this.setState({
-                enabled: !this.state.enabled,
-            });
-        }
-        render() {
-            return (
-                <span>
-                    <ToggleIcon onClick={this.toggle}/>
-                    {this.state.enabled ? (
-                        <ToToggle {...this.props}/>
-                    ) : ""}
-                </span>
-            );
-        }
-    }
-}
+export const toggleWrapper = (ToToggle, ToggleIcon) => (
+    compose(
+        withState(
+            "enabled",
+            "setToggle",
+            false,
+        ),
+        withHandlers({
+            toggle: ({setToggle}) => (
+                () => setToggle(enabled => !enabled)
+            ),
+        }),
+    )(
+        ({toggle, enabled, ...props}) => (
+            <span>
+                <ToggleIcon onClick={toggle}/>
+                {enabled ? (
+                    <ToToggle {...props}/>
+                ) : ""}
+            </span>
+        )
+    )
+);
