@@ -1,4 +1,5 @@
 import gql from "graphql-tag";
+import {graphql} from "react-apollo";
 
 export const editMutation = ({
     name,
@@ -55,6 +56,25 @@ query ${name} (
     }
 }
 `;
+
+export const pagesGraphql = ({
+    query,
+    dataName
+}) => (
+    graphql(query, {
+        options: ({order, filter, page}) => ({
+            variables: {
+                order,
+                filter,
+                skip: page*10,
+                first: 10,
+            }
+        }),
+        props: ({data}) => ({
+            data: data[dataName] || [],
+        }),
+    })
+)
 
 export const deleteMutation = ({
     name,

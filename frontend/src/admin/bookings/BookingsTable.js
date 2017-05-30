@@ -2,7 +2,7 @@ import React from "react";
 import {graphql, compose} from "react-apollo";
 
 import {filterState, orderState, deleteState, pageState} from "../tableState";
-import {allQuery, deleteMutation} from "../graphqlHelpers";
+import {allQuery, deleteMutation, pagesGraphql} from "../graphqlHelpers";
 
 import BookingsTableTemplate from "./BookingsTableTemplate";
 
@@ -36,17 +36,8 @@ export default compose(
     orderState,
     deleteState,
     pageState,
-    graphql(getBookingsQuery, {
-        options: ({order, filter, page}) => ({
-            variables: {
-                order,
-                filter,
-                skip: page*10,
-                first: 10,
-            }
-        }),
-        props: ({data: {bookings=[]}}) => ({
-            data: bookings,
-        })
+    pagesGraphql({
+        query: getBookingsQuery,
+        dataName: "bookings",
     }),
 )(BookingsTableTemplate);

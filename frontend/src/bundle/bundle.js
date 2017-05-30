@@ -25409,27 +25409,9 @@ exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(deleteBook
     options: {
         refetchQueries: ["bookings"]
     }
-}), _tableState.filterState, _tableState.orderState, _tableState.deleteState, _tableState.pageState, (0, _reactApollo.graphql)(getBookingsQuery, {
-    options: function options(_ref) {
-        var order = _ref.order,
-            filter = _ref.filter,
-            page = _ref.page;
-        return {
-            variables: {
-                order: order,
-                filter: filter,
-                skip: page * 10,
-                first: 10
-            }
-        };
-    },
-    props: function props(_ref2) {
-        var _ref2$data$bookings = _ref2.data.bookings,
-            bookings = _ref2$data$bookings === undefined ? [] : _ref2$data$bookings;
-        return {
-            data: bookings
-        };
-    }
+}), _tableState.filterState, _tableState.orderState, _tableState.deleteState, _tableState.pageState, (0, _graphqlHelpers.pagesGraphql)({
+    query: getBookingsQuery,
+    dataName: "bookings"
 }))(_BookingsTableTemplate2.default);
 
 /***/ }),
@@ -25457,7 +25439,7 @@ exports.default = function (data) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.deleteMutation = exports.allQuery = exports.singleQuery = exports.editMutation = undefined;
+exports.deleteMutation = exports.pagesGraphql = exports.allQuery = exports.singleQuery = exports.editMutation = undefined;
 
 var _templateObject = _taggedTemplateLiteral(["\nmutation ", " (\n    $id: Int!,\n    $record: ", "\n) {\n    ", " (\n        id: $id,\n        record: $record\n    ) {\n        ", "\n    }\n}\n"], ["\nmutation ", " (\n    $id: Int!,\n    $record: ", "\n) {\n    ", " (\n        id: $id,\n        record: $record\n    ) {\n        ", "\n    }\n}\n"]),
     _templateObject2 = _taggedTemplateLiteral(["\nquery ", " (\n    $id: Int!\n) {\n    ", " (\n        id: $id\n    ) {\n        ", "\n    }\n}\n"], ["\nquery ", " (\n    $id: Int!\n) {\n    ", " (\n        id: $id\n    ) {\n        ", "\n    }\n}\n"]),
@@ -25467,6 +25449,8 @@ var _templateObject = _taggedTemplateLiteral(["\nmutation ", " (\n    $id: Int!,
 var _graphqlTag = __webpack_require__(91);
 
 var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
+
+var _reactApollo = __webpack_require__(93);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25493,9 +25477,35 @@ var allQuery = exports.allQuery = function allQuery(_ref3) {
     return (0, _graphqlTag2.default)(_templateObject3, name, orderType, filterType, name, fields.join("\n"));
 };
 
-var deleteMutation = exports.deleteMutation = function deleteMutation(_ref4) {
-    var name = _ref4.name,
-        fields = _ref4.fields;
+var pagesGraphql = exports.pagesGraphql = function pagesGraphql(_ref4) {
+    var query = _ref4.query,
+        dataName = _ref4.dataName;
+    return (0, _reactApollo.graphql)(query, {
+        options: function options(_ref5) {
+            var order = _ref5.order,
+                filter = _ref5.filter,
+                page = _ref5.page;
+            return {
+                variables: {
+                    order: order,
+                    filter: filter,
+                    skip: page * 10,
+                    first: 10
+                }
+            };
+        },
+        props: function props(_ref6) {
+            var data = _ref6.data;
+            return {
+                data: data[dataName] || []
+            };
+        }
+    });
+};
+
+var deleteMutation = exports.deleteMutation = function deleteMutation(_ref7) {
+    var name = _ref7.name,
+        fields = _ref7.fields;
     return (0, _graphqlTag2.default)(_templateObject4, name, name, fields.join("\n"));
 };
 
