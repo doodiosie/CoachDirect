@@ -16,35 +16,36 @@ var _moment2 = _interopRequireDefault(_moment);
 
 var _reactBootstrap = require("react-bootstrap");
 
+var _recompose = require("recompose");
+
 var _FilterComponents = require("../FilterComponents");
+
+var _TableComponents = require("../TableComponents");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (_ref) {
+var Template = function Template(_ref) {
     var data = _ref.data,
         onOrder = _ref.onOrder,
         onFilter = _ref.onFilter,
         loadMore = _ref.loadMore,
-        onDelete = _ref.onDelete;
+        onDelete = _ref.onDelete,
+        setPage = _ref.setPage,
+        page = _ref.page;
     return _react2.default.createElement(
         "div",
         null,
         _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: "/admin/bookings/add" },
-            "Add a Booking"
-        ),
-        _react2.default.createElement(
-            _reactBootstrap.Grid,
+            _reactBootstrap.Table,
             null,
             _react2.default.createElement(
-                _reactBootstrap.Row,
+                "thead",
                 null,
                 _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { xs: 2 },
+                    "tr",
+                    null,
                     _react2.default.createElement(
-                        "strong",
+                        "th",
                         null,
                         _react2.default.createElement(
                             "span",
@@ -52,15 +53,11 @@ exports.default = function (_ref) {
                                     return onOrder("id");
                                 } },
                             "Id"
-                        )
+                        ),
+                        _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "id" })
                     ),
-                    _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "id" })
-                ),
-                _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { xs: 1 },
                     _react2.default.createElement(
-                        "strong",
+                        "th",
                         null,
                         _react2.default.createElement(
                             "span",
@@ -68,15 +65,11 @@ exports.default = function (_ref) {
                                     return onOrder("firstName");
                                 } },
                             "First Name"
-                        )
+                        ),
+                        _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "firstName" })
                     ),
-                    _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "firstName" })
-                ),
-                _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { xs: 1 },
                     _react2.default.createElement(
-                        "strong",
+                        "th",
                         null,
                         _react2.default.createElement(
                             "span",
@@ -84,15 +77,11 @@ exports.default = function (_ref) {
                                     return onOrder("lastName");
                                 } },
                             "Last Name"
-                        )
+                        ),
+                        _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "lastName" })
                     ),
-                    _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "lastName" })
-                ),
-                _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { xs: 1 },
                     _react2.default.createElement(
-                        "strong",
+                        "th",
                         null,
                         _react2.default.createElement(
                             "span",
@@ -100,15 +89,11 @@ exports.default = function (_ref) {
                                     return onOrder("pickupDate");
                                 } },
                             "Pickup Date"
-                        )
+                        ),
+                        _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "pickupDate" })
                     ),
-                    _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "pickupDate" })
-                ),
-                _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { xs: 2 },
                     _react2.default.createElement(
-                        "strong",
+                        "th",
                         null,
                         _react2.default.createElement(
                             "span",
@@ -116,15 +101,11 @@ exports.default = function (_ref) {
                                     return onOrder("pickupAddress");
                                 } },
                             "Pickup Address"
-                        )
+                        ),
+                        _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "pickupAddress" })
                     ),
-                    _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "pickupAddress" })
-                ),
-                _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { xs: 2 },
                     _react2.default.createElement(
-                        "strong",
+                        "th",
                         null,
                         _react2.default.createElement(
                             "span",
@@ -132,15 +113,11 @@ exports.default = function (_ref) {
                                     return onOrder("destinationAddress");
                                 } },
                             "Destination Address"
-                        )
+                        ),
+                        _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "destinationAddress" })
                     ),
-                    _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "destinationAddress" })
-                ),
-                _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { xs: 1 },
                     _react2.default.createElement(
-                        "strong",
+                        "th",
                         null,
                         _react2.default.createElement(
                             "span",
@@ -148,94 +125,90 @@ exports.default = function (_ref) {
                                     return onOrder("price");
                                 } },
                             "Price"
-                        )
-                    ),
-                    _react2.default.createElement(_FilterComponents.ToggleCurFilter, { onFilter: onFilter, field: "price" })
+                        ),
+                        _react2.default.createElement(_FilterComponents.ToggleTextFilter, { onFilter: onFilter, field: "price" })
+                    )
                 )
             ),
             _react2.default.createElement(
-                _reactBootstrap.Row,
-                { style: {
-                        height: "70vh",
-                        overflowY: "scroll"
-                    },
-                    onScroll: function onScroll(_ref2) {
-                        var target = _ref2.target;
-
-                        target.childNodes[0].offsetHeight - target.scrollTop === target.clientHeight ? loadMore() : "";
-                    } },
-                _react2.default.createElement(
-                    _reactBootstrap.ListGroup,
-                    { style: {
-                            paddingTop: 10,
-                            margin: 0
-                        } },
-                    data.map(function (booking) {
-                        return _react2.default.createElement(
-                            _reactBootstrap.ListGroupItem,
-                            { key: booking.id, style: {
-                                    height: 40
-                                } },
+                "tbody",
+                null,
+                data.map(function (booking) {
+                    return _react2.default.createElement(
+                        "tr",
+                        { key: booking.id, style: {
+                                height: 40
+                            } },
+                        _react2.default.createElement(
+                            "td",
+                            null,
+                            booking.id
+                        ),
+                        _react2.default.createElement(
+                            "td",
+                            null,
+                            booking.firstName
+                        ),
+                        _react2.default.createElement(
+                            "td",
+                            null,
+                            booking.lastName
+                        ),
+                        _react2.default.createElement(
+                            "td",
+                            null,
+                            (0, _moment2.default)(booking.pickupDate, "x").format("DD/MM/YY")
+                        ),
+                        _react2.default.createElement(
+                            "td",
+                            null,
+                            booking.pickupAddress
+                        ),
+                        _react2.default.createElement(
+                            "td",
+                            null,
+                            booking.destinationAddress
+                        ),
+                        _react2.default.createElement(
+                            "td",
+                            null,
+                            "\xA3",
+                            booking.price / 100
+                        ),
+                        _react2.default.createElement(
+                            "td",
+                            null,
                             _react2.default.createElement(
-                                _reactBootstrap.Col,
-                                { xs: 2 },
-                                booking.id
-                            ),
-                            _react2.default.createElement(
-                                _reactBootstrap.Col,
-                                { xs: 1 },
-                                booking.firstName
-                            ),
-                            _react2.default.createElement(
-                                _reactBootstrap.Col,
-                                { xs: 1 },
-                                booking.lastName
-                            ),
-                            _react2.default.createElement(
-                                _reactBootstrap.Col,
-                                { xs: 1 },
-                                (0, _moment2.default)(booking.pickupDate, "x").format("DD/MM/YY")
-                            ),
-                            _react2.default.createElement(
-                                _reactBootstrap.Col,
-                                { xs: 2 },
-                                booking.pickupAddress
-                            ),
-                            _react2.default.createElement(
-                                _reactBootstrap.Col,
-                                { xs: 2 },
-                                booking.destinationAddress
-                            ),
-                            _react2.default.createElement(
-                                _reactBootstrap.Col,
-                                { xs: 1 },
-                                "\xA3",
-                                booking.price / 100
-                            ),
-                            _react2.default.createElement(
-                                _reactBootstrap.Col,
-                                { xs: 1 },
-                                _react2.default.createElement(
-                                    _reactRouterDom.Link,
-                                    { to: "/admin/bookings/edit/" + booking.id },
-                                    "Edit"
-                                )
-                            ),
-                            _react2.default.createElement(
-                                _reactBootstrap.Col,
-                                { xs: 1 },
-                                _react2.default.createElement(
-                                    "a",
-                                    { onClick: function onClick() {
-                                            return onDelete(booking.id);
-                                        } },
-                                    "Delete"
-                                )
+                                _reactRouterDom.Link,
+                                { to: "/admin/bookings/edit/" + booking.id },
+                                "Edit"
                             )
-                        );
-                    })
-                )
+                        ),
+                        _react2.default.createElement(
+                            "td",
+                            null,
+                            _react2.default.createElement(
+                                "a",
+                                { onClick: function onClick() {
+                                        return onDelete(booking.id);
+                                    } },
+                                "Delete"
+                            )
+                        )
+                    );
+                })
             )
-        )
+        ),
+        _react2.default.createElement(_TableComponents.Pages, { setPage: setPage, page: page })
     );
 };
+
+// export default compose(
+//     withState(
+//         "page",
+//         "setPage",
+//         0,
+//     ),
+// )(Template);
+
+exports.default = Template;

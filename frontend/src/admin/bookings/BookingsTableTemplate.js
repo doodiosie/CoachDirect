@@ -70,12 +70,4 @@ const Template = ({data, onOrder, onFilter, loadMore, onDelete, setPage, page}) 
     </div>
 );
 
-// export default compose(
-//     withState(
-//         "page",
-//         "setPage",
-//         0,
-//     ),
-// )(Template);
-
 export default Template;

@@ -10,6 +10,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactApollo = require("react-apollo");
 
+var _recompose = require("recompose");
+
 var _tableState = require("../tableState");
 
 var _tableState2 = _interopRequireDefault(_tableState);
@@ -40,16 +42,17 @@ exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(deleteBook
     options: {
         refetchQueries: ["bookings"]
     }
-}), _tableState2.default, (0, _reactApollo.graphql)(getBookingsQuery, {
+}), _tableState2.default, (0, _recompose.withState)("page", "setPage", 0), (0, _reactApollo.graphql)(getBookingsQuery, {
     options: function options(_ref) {
         var order = _ref.order,
-            filter = _ref.filter;
+            filter = _ref.filter,
+            page = _ref.page;
         return {
             variables: {
                 order: order,
                 filter: filter,
-                skip: 0,
-                first: 40
+                skip: page * 10,
+                first: 10
             }
         };
     },
